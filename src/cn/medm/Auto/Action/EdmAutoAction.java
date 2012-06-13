@@ -6,7 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class EdmAutoAction extends ActionSupport {
 
-	
+	/*edm html auto system*/
 	String width;
 	String height;
 	int row;
