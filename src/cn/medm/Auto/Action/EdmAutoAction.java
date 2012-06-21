@@ -1,6 +1,11 @@
 package cn.medm.Auto.Action;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class EdmAutoAction extends ActionSupport {
@@ -13,13 +18,16 @@ public class EdmAutoAction extends ActionSupport {
 	private String height;
 	private int row;
 	private int col;
-	private String type[];
-	private String value[];
+	private List<String> type = new ArrayList<String>();
+	private List<String> value = new ArrayList<String>();
+	private List<String> topText = new ArrayList<String>();
+	private List<String> buttomText = new ArrayList<String>();
+	private Map<Integer,String> values = new HashMap<Integer,String>();
+	private int valueSize;
 	
 	public String create() throws Exception {
-		System.out.println("为什么打印不出来呢？");
 		System.out.println(this.toString());
-		if(Integer.valueOf(this.getWidth()) == 700)
+		if(type.get(0).equals("img"))
 			return "success";
 		else
 			return "error";
@@ -50,21 +58,47 @@ public class EdmAutoAction extends ActionSupport {
 		this.col = col;
 	}
 
-	
-	public String[] getType() {
+	public List<String> getType() {
 		return type;
 	}
 
-	public void setType(String[] type) {
+	public void setType(List<String> type) {
 		this.type = type;
 	}
 
-	public String[] getValue() {
+	public List<String> getValue() {
 		return value;
 	}
 
-	public void setValue(String[] value) {
+	public int getValueSize(){
+		valueSize = value.size();
+		return valueSize;
+	}
+	
+	public Map<Integer,String> getValues() {
+		for(int i=0; i<type.size(); i++)
+			values.put(i,type.get(i)+":"+value.get(i));
+		return values;
+	}
+	
+	public void setValue(List<String> value) {
 		this.value = value;
+	}
+
+	public List<String> getTopText() {
+		return topText;
+	}
+
+	public void setTopText(List<String> topText) {
+		this.topText = topText;
+	}
+
+	public List<String> getButtomText() {
+		return buttomText;
+	}
+
+	public void setButtomText(List<String> buttomText) {
+		this.buttomText = buttomText;
 	}
 
 	public String toString(){
