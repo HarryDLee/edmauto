@@ -27,7 +27,7 @@ public class Property {
 	}
 	public String getValue() {
 		if(this.getType() == 0)
-			return "\""+value+"\" ";
+			return "\""+value+"\"";
 		else return value;
 	}
 	public void setValue(String value) {

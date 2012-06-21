@@ -1,22 +1,25 @@
 package cn.medm.Auto.Action;
 
-import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 public class EdmAutoAction extends ActionSupport {
 
-	/*edm html auto system*/
-	String width;
-	String height;
-	int row;
-	int col;
-	List<String> values;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String width;
+	private String height;
+	private int row;
+	private int col;
+	private String type[];
+	private String value[];
 	
 	public String create() throws Exception {
+		System.out.println("为什么打印不出来呢？");
 		System.out.println(this.toString());
-		
-		if(true)
+		if(Integer.valueOf(this.getWidth()) == 700)
 			return "success";
 		else
 			return "error";
@@ -46,19 +49,26 @@ public class EdmAutoAction extends ActionSupport {
 	public void setCol(int col) {
 		this.col = col;
 	}
-	public String getValues() {
-		String result = "";
-		for(String value : this.values){
-			result += "\n" + value;
-		}
-		return result;
-	}
-	public void setValues(List<String> values) {
-		this.values = values;
-	}
+
 	
+	public String[] getType() {
+		return type;
+	}
+
+	public void setType(String[] type) {
+		this.type = type;
+	}
+
+	public String[] getValue() {
+		return value;
+	}
+
+	public void setValue(String[] value) {
+		this.value = value;
+	}
+
 	public String toString(){
-		return this.getWidth() + this.getHeight() + this.getRow() + this.getCol() + this.getValues();
+		return this.getWidth() + this.getHeight() + this.getRow() + this.getCol() + this.getValue();
 	}
 	
 	

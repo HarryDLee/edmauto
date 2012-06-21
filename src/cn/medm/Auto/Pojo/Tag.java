@@ -1,5 +1,6 @@
 package cn.medm.Auto.Pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tag {
@@ -7,9 +8,17 @@ public class Tag {
 	
 	private String tag;
 	private int type;//enum 0:only text 1:normal tag 2:without end tag
-	private List<Property> properties;
-	private List<Tag> innerTags;
+	private List<Property> properties = new ArrayList<Property>();
+	private List<Tag> innerTags = new ArrayList<Tag>();
 	private String remark;
+	
+	
+	public Tag(String tag, int type) {
+		super();
+		this.tag = tag;
+		this.type = type;
+	}
+	
 	public String getTag() {
 		return tag;
 	}
@@ -25,13 +34,18 @@ public class Tag {
 	public String getProperties() {
 		String value = "";
 		for(Property p : this.properties){
-			value += p.toString();
+			value += " " + p.toString();
 		}
 		return value;
 	}
 	public void setProperties(List<Property> properties) {
 		this.properties = properties;
 	}
+	
+	public void addProperty(Property property){
+		this.properties.add(property);
+	}
+	
 	public String getInnerTags() {
 		String value = "";
 		for(Tag t : this.innerTags){
@@ -42,6 +56,15 @@ public class Tag {
 	public void setInnerTags(List<Tag> innerTags) {
 		this.innerTags = innerTags;
 	}
+	
+	public void delInnerTag(Tag innerTag){
+		this.innerTags.remove(innerTag);
+	}
+	
+	public void addInnerTag(Tag innerTag){
+		this.innerTags.add(innerTag);
+	}
+	
 	public String getRemark() {
 		return remark;
 	}
@@ -49,19 +72,17 @@ public class Tag {
 		this.remark = remark;
 	}
 	
-	public Tag(String tag, int type) {
-		super();
-		this.tag = tag;
-		this.type = type;
-	}
+	
 	
 	private String getTagBeginLeft(){
-		return "<"+this.getTag()+" ";
+		if(this.getType() == 0)
+			return this.getTag();
+		return "<"+this.getTag()+ (this.properties.size()>0?" ":"");
 	}
 	
 	private String getTagBeginRight(){
 		if(this.getType() == 1)
-			return " >";
+			return ">";
 		else if(this.getType() == 2)
 			return "/>";
 		else
@@ -69,8 +90,8 @@ public class Tag {
 	}
 	
 	private String getTagEnd(){
-		if(this.getType() == 1) 
-			return "</"+this.getTag()+">";
+		if(this.getType() == 1)
+			return "</"+this.getTag()+">\n";
 		return "";
 	}
 	
@@ -78,7 +99,7 @@ public class Tag {
 	public String toString() {
 		return this.getTagBeginLeft()+
 		this.getProperties() + 
-		this.getTagBeginRight() + 
+		this.getTagBeginRight() + "\n" +
 		this.getInnerTags() + 
 		this.getTagEnd();
 	}
